@@ -2,7 +2,9 @@
 
 @{
     ViewData["Title"] = "Luo uusi resepti";
-    var ingredients = ViewBag.Json;
+    //var ingredients = ViewBag.Json;
+    var ingredients = TempData["ingredients"];
+    
 }
 
 <h2>Luo uusi resepti</h2>
@@ -32,6 +34,22 @@
             <label asp-for="Ingredients" class="control-label">Raaka-aineet</label>
             <div id="newIngredients">
                 @*The ingredients come to this div when added*@
+                @*<div class="form-group" id="added-item-0">
+                    <div class="row" id="ingredient-row">
+                        <div class="short-ingredient-box">
+                            <input class="form-control" type="number" id=incredient-0-amount min="1" name="Ingredients[0].AmountG" />
+                        </div>
+                        <div class="short-ingredient-box">
+                            <input class="form-control" type="text" id=incredient-0-unit name="Ingredients[0].RecipeUnit" readonly value="g" />
+                        </div>
+                        <div class="long-ingredient-box">
+                            @{await Html.RenderPartialAsync("LoadJson", ingredients, new ViewDataDictionary(ViewData) { { "rowNumber", 0 } });}
+                        </div>
+                        <div class="delete-button">
+                            <button type="button" onclick="deleteRow(id)" id="delete-button-0">X</button>
+                        </div>
+                    </div>
+                </div>*@
             </div>
             <button type="button" class="btn" id="AddIngredient" onclick="newIngredient()">Lisää raaka-aine</button>
             <div class="form-group">

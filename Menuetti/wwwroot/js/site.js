@@ -55,7 +55,7 @@ function newIngredient() {
                         <input class="form-control" type="text" id=incredient-${index}-unit name="Ingredients[${index}].RecipeUnit" readonly value="g" />
                     </div>
                     <div class="long-ingredient-box">
-                        <input class="form-control" type="text" id=incredient-${index}-name name="Ingredients[${index}].IngredientName" />
+                        @{await Html.RenderPartialAsync("LoadJson", ingredients, new ViewDataDictionary(ViewData) { { "rowNumber", 0 } });}
                     </div>
                     <div class="delete-button">
                         <button type="button" onclick="deleteRow(id)" id="delete-button-${index}">X</button>
@@ -182,4 +182,37 @@ function deleteRow(id) {
 
         }
     }
+}
+
+// Ingredient search (partial view named LoadJson)
+
+function SearchIngredient() {
+
+    var input, filter, ul, li, a, i, txtValue;
+
+    input = document.getElementById(`incredient-${index}-name`);
+    filter = input.value.toUpperCase();
+    ul = document.getElementById("ingredient-options");
+    li = ul.getElementsByTagName("li");
+    for (i = 0; i < li.length; i++) {
+        a = li[i].getElementsByTagName("a")[0];
+        txtValue = a.textContent || a.innerText;
+        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            li[i].style.display = "";
+        } else {
+            li[i].style.display = "none";
+        }
+    }
+}
+
+function showIngredientOptions() {
+    $("#ingredient-options").toggle();
+}
+
+function save(id) {
+    console.log(id);
+    console.log(document.getElementById(`incredient-${index}-name`).value);
+
+    document.getElementById(`incredient-${index}-name`).value = id;
+    $("#ingredient-options").hide();
 }
